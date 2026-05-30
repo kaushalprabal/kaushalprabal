@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prabal Kaushal — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0C0C0E;
+  --off:    #F7F5F0;
+  --cream:  #EDE9E0;
+  --accent: #C0392B;
+  --gold:   #C9992A;
+  --teal:   #0E6B5E;
+  --slate:  #2C3E50;
+  --muted:  #6B6B70;
+  --border: rgba(12,12,14,.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--off);overflow-x:hidden;cursor:none}
+
+/* ── Custom cursor ── */
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;mix-blend-mode:exclusion}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(192,57,43,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .15s,width .3s,height .3s}
+
+/* ── Noise overlay ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:.4}
+
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(12,12,14,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(247,245,240,.06)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:.04em;color:var(--off)}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:13px;font-weight:400;color:rgba(247,245,240,.55);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover{color:var(--off)}
+.nav-cta{font-size:12px;font-weight:500;padding:9px 22px;border:1px solid rgba(192,57,43,.5);border-radius:50px;color:var(--accent);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:all .3s}
+.nav-cta:hover{background:var(--accent);color:var(--off)}
+
+/* ── Hero ── */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 48px 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 80% 50%,rgba(192,57,43,.12) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(14,107,94,.1) 0%,transparent 55%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(247,245,240,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(247,245,240,.025) 1px,transparent 1px);background-size:80px 80px}
+.hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%}
+.hero-eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent)}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,110px);font-weight:800;line-height:.92;letter-spacing:-.03em;color:var(--off);margin-bottom:24px}
+.hero-name .accent-word{color:var(--accent)}
+.hero-tagline{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(18px,2.5vw,26px);color:rgba(247,245,240,.6);max-width:560px;line-height:1.5;margin-bottom:48px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{padding:14px 36px;background:var(--accent);color:var(--off);border-radius:50px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s;border:none;cursor:none}
+.btn-primary:hover{background:#A93226;transform:translateY(-2px)}
+.btn-ghost{padding:14px 36px;border:1px solid rgba(247,245,240,.2);color:var(--off);border-radius:50px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn-ghost:hover{border-color:var(--off);background:rgba(247,245,240,.05)}
+.hero-scroll{position:absolute;bottom:40px;right:48px;writing-mode:vertical-rl;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,240,.3);display:flex;align-items:center;gap:12px}
+.hero-scroll::after{content:'';width:1px;height:48px;background:rgba(247,245,240,.15)}
+
+/* ── Section base ── */
+section{padding:100px 48px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:56px}
+
+/* ── Stats band ── */
+#stats{background:var(--off);color:var(--ink);padding:72px 48px}
+.stats-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0}
+.stat-item{padding:32px 40px;border-right:1px solid rgba(12,12,14,.1);position:relative;transition:background .3s}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:rgba(12,12,14,.03)}
+.stat-num{font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1;margin-bottom:8px}
+.stat-num span{color:var(--accent)}
+.stat-label{font-size:12px;font-weight:400;color:rgba(12,12,14,.5);letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
+
+/* ── About ── */
+#about{background:#111116}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-text p{font-size:17px;line-height:1.85;color:rgba(247,245,240,.7);margin-bottom:20px;font-weight:300}
+.about-text strong{color:var(--off);font-weight:500}
+.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.tag{padding:6px 16px;border:1px solid rgba(247,245,240,.12);border-radius:50px;font-size:11px;letter-spacing:.06em;color:rgba(247,245,240,.5);text-transform:uppercase}
+.about-sidebar .card-dark{background:rgba(247,245,240,.04);border:1px solid rgba(247,245,240,.08);border-radius:16px;padding:28px;margin-bottom:16px}
+.card-dark h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.card-dark ul{list-style:none}
+.card-dark ul li{font-size:14px;color:rgba(247,245,240,.6);padding:7px 0;border-bottom:1px solid rgba(247,245,240,.06);display:flex;justify-content:space-between;align-items:center}
+.card-dark ul li:last-child{border-bottom:none}
+.card-dark ul li .pill{font-size:10px;padding:2px 10px;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.25);border-radius:20px;color:var(--accent);letter-spacing:.04em}
+
+/* ── Experience ── */
+#experience{background:var(--ink)}
+.exp-timeline{position:relative;padding-left:32px}
+.exp-timeline::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),rgba(192,57,43,.1))}
+.exp-item{position:relative;margin-bottom:64px;padding-left:32px}
+.exp-item::before{content:'';position:absolute;left:-36px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--ink);box-shadow:0 0 0 4px rgba(192,57,43,.2)}
+.exp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.exp-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--off)}
+.exp-date{font-size:12px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;padding:4px 14px;border:1px solid rgba(192,57,43,.3);border-radius:20px;white-space:nowrap}
+.exp-company{font-size:14px;color:rgba(247,245,240,.45);margin-bottom:20px;letter-spacing:.02em}
+.exp-company strong{color:rgba(247,245,240,.65)}
+.exp-bullets{list-style:none}
+.exp-bullets li{font-size:14.5px;line-height:1.75;color:rgba(247,245,240,.62);padding:6px 0;padding-left:18px;position:relative;font-weight:300}
+.exp-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;top:8px}
+.exp-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.metric-chip{padding:7px 16px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:8px;font-size:13px;font-weight:500;color:var(--off)}
+.metric-chip span{color:var(--accent);font-weight:700}
+
+/* ── Skills ── */
+#skills{background:#0C0F1A}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.skill-card{background:rgba(247,245,240,.03);border:1px solid rgba(247,245,240,.07);border-radius:16px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+.skill-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.skill-card:hover::after{transform:scaleX(1)}
+.skill-card:hover{border-color:rgba(247,245,240,.14);background:rgba(247,245,240,.05);transform:translateY(-3px)}
+.skill-cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.skill-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--off);margin-bottom:16px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tag{font-size:11px;padding:4px 12px;background:rgba(247,245,240,.06);border-radius:6px;color:rgba(247,245,240,.55)}
+
+/* ── Projects ── */
+#projects{background:var(--ink)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+.project-card{background:rgba(247,245,240,.03);border:1px solid rgba(247,245,240,.07);border-radius:20px;overflow:hidden;transition:all .4s;cursor:none}
+.project-card:hover{transform:translateY(-6px);border-color:rgba(247,245,240,.15);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.project-img{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.project-img .icon{font-size:64px;filter:grayscale(.3)}
+.project-tag-top{position:absolute;top:16px;right:16px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;font-weight:500}
+.project-body{padding:24px}
+.project-body h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--off);margin-bottom:8px}
+.project-body p{font-size:13.5px;color:rgba(247,245,240,.55);line-height:1.65;margin-bottom:16px}
+.project-stats{display:flex;gap:16px;flex-wrap:wrap}
+.p-stat{font-size:12px;color:var(--accent);font-weight:500}
+
+/* ── Education ── */
+#education{background:#0D0F18}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.edu-card{background:rgba(247,245,240,.03);border:1px solid rgba(247,245,240,.07);border-radius:16px;padding:28px;transition:all .3s}
+.edu-card:hover{background:rgba(247,245,240,.05);border-color:rgba(247,245,240,.12);transform:translateY(-3px)}
+.edu-icon{font-size:32px;margin-bottom:16px}
+.edu-year{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.edu-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--off);margin-bottom:6px;line-height:1.3}
+.edu-card p{font-size:13px;color:rgba(247,245,240,.45);line-height:1.5}
+
+/* ── Tools ── */
+#tools{background:var(--ink)}
+.tools-marquee{overflow:hidden;padding:20px 0;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent)}
+.tools-track{display:flex;gap:24px;animation:marquee 25s linear infinite;width:max-content}
+.tools-track:hover{animation-play-state:paused}
+.tool-chip{padding:10px 24px;background:rgba(247,245,240,.05);border:1px solid rgba(247,245,240,.09);border-radius:50px;font-size:13px;font-weight:400;color:rgba(247,245,240,.55);white-space:nowrap;transition:all .3s}
+.tool-chip:hover{background:rgba(247,245,240,.09);color:var(--off);border-color:rgba(247,245,240,.2)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── Impact numbers ── */
+#impact{background:linear-gradient(135deg,#0E0A06 0%,#110D04 100%)}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(247,245,240,.06);border:1px solid rgba(247,245,240,.06);border-radius:20px;overflow:hidden}
+.impact-cell{background:var(--ink);padding:40px 32px;text-align:center;transition:background .3s}
+.impact-cell:hover{background:#0F0F14}
+.impact-big{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-.02em;color:var(--gold);line-height:1}
+.impact-big sub{font-size:60%;vertical-align:baseline;color:var(--accent)}
+.impact-desc{font-size:12px;color:rgba(247,245,240,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:10px;line-height:1.5}
+
+/* ── Contact ── */
+#contact{background:#0C0C0E;padding:100px 48px 80px}
+.contact-inner{max-width:700px;margin:0 auto;text-align:center}
+.contact-inner .section-label{justify-content:center}
+.contact-inner .section-label::before{display:none}
+.contact-inner .section-title{margin-bottom:20px}
+.contact-inner p{font-size:16px;color:rgba(247,245,240,.5);margin-bottom:48px;line-height:1.7}
+.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.contact-link{padding:14px 32px;border:1px solid rgba(247,245,240,.12);border-radius:50px;font-size:13px;color:rgba(247,245,240,.6);text-decoration:none;display:flex;align-items:center;gap:8px;transition:all .3s;letter-spacing:.04em}
+.contact-link:hover{border-color:var(--accent);color:var(--off);background:rgba(192,57,43,.08)}
+footer{padding:24px 48px;border-top:1px solid rgba(247,245,240,.06);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(247,245,240,.25)}
+
+/* ── Reveal animation ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  nav{padding:18px 24px}
+  .nav-links{display:none}
+  section,#stats,#contact{padding:72px 24px}
+  #hero{padding:100px 24px 60px}
+  .about-grid{grid-template-columns:1fr}
+  .about-sidebar{margin-top:0}
+  footer{flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PK<span>.</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:iamkaushal56@yahoo.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Program Manager · Product & Operations · Delhi, India</div>
+    <h1 class="hero-name">Prabal<br><span class="accent-word">Kaushal</span></h1>
+    <p class="hero-tagline">Building products, scaling operations, and turning data into decisions — across B2B SaaS and 7 years of entrepreneurial execution.</p>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Let's Connect</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS BAND -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num">157<span>%</span></div>
+      <div class="stat-label">Revenue Growth<br>in 7 Months</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">55<span>K+</span></div>
+      <div class="stat-label">Leads Managed<br>across 12 Months</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">₹51<span>L+</span></div>
+      <div class="stat-label">Revenue Tracked<br>Bridge App</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">8.2<span>%</span></div>
+      <div class="stat-label">CVR Achieved<br>(+65% Lift)</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">₹70<span>L</span></div>
+      <div class="stat-label">Peak Annual Revenue<br>Entrepreneur</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">9<span>+</span></div>
+      <div class="stat-label">Years of Combined<br>Experience</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title" style="margin-bottom:32px">Operator.<br>Builder. Analyst.</h2>
+        <p>I'm a <strong>Program & Product Manager</strong> based in Delhi — currently leading product operations and program delivery for Bridge App, a live B2B SaaS CRM deployed for <strong>3M Car Care Doorstep</strong>, India's premium automotive service brand.</p>
+        <p>Before formal corporate roles, I spent <strong>7 years as a founder</strong> building two consumer businesses — growing from zero to ₹70L in annual revenue, owning everything from product design and e-commerce to B2B exports and Google Ads.</p>
+        <p>I bring a rare combination: the <strong>structured thinking of a program manager</strong>, the <strong>data fluency of an analyst</strong>, and the <strong>execution instinct of someone who's built something from scratch.</strong></p>
+        <div class="about-tags">
+          <span class="tag">B2B SaaS</span><span class="tag">CRM Operations</span><span class="tag">Agile</span>
+          <span class="tag">Product Roadmap</span><span class="tag">PRD / BRD</span><span class="tag">SQL</span>
+          <span class="tag">Power BI</span><span class="tag">GTM Strategy</span><span class="tag">Stakeholder Mgmt</span>
+        </div>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="card-dark">
+          <h4>📍 Identity</h4>
+          <ul>
+            <li>Location <span class="pill">Delhi NCR</span></li>
+            <li>Phone <span class="pill">+91 9667105556</span></li>
+            <li>Email <span class="pill">Yahoo Mail</span></li>
+            <li>Open To <span class="pill">Immediate</span></li>
+          </ul>
+        </div>
+        <div class="card-dark">
+          <h4>🎯 Target Roles</h4>
+          <ul>
+            <li>Program Manager</li>
+            <li>Product Operations Manager</li>
+            <li>Business Analyst</li>
+            <li>Strategy & Operations</li>
+            <li>Founder's Office / Chief of Staff</li>
+          </ul>
+        </div>
+        <div class="card-dark">
+          <h4>🤝 Key Partnerships Built</h4>
+          <ul>
+            <li>CRED <span class="pill">250 Leads/mo</span></li>
+            <li>CARS24 <span class="pill">Active</span></li>
+            <li>IDFC Bank <span class="pill">Initiated</span></li>
+            <li>ICICI Bank <span class="pill">Initiated</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT NUMBERS -->
+<section id="impact" style="padding:80px 48px">
+  <div class="section-inner">
+    <div class="section-label reveal">Impact by Numbers</div>
+    <h2 class="section-title reveal">Results that<br>speak clearly.</h2>
+    <div class="impact-grid">
+      <div class="impact-cell reveal"><div class="impact-big">3,849</div><div class="impact-desc">Total Bookings<br>Generated</div></div>
+      <div class="impact-cell reveal"><div class="impact-big">3,594</div><div class="impact-desc">Completed Service<br>Appointments</div></div>
+      <div class="impact-cell reveal"><div class="impact-big">18.1<sub>%</sub></div><div class="impact-desc">Peak Organic CVR<br>Achieved</div></div>
+      <div class="impact-cell reveal"><div class="impact-big">₹8L</div><div class="impact-desc">Monthly Revenue Peak<br>(from ₹3.1L)</div></div>
+      <div class="impact-cell reveal"><div class="impact-big">20K+</div><div class="impact-desc">CPI Records<br>Analysed (Inflation Study)</div></div>
+      <div class="impact-cell reveal"><div class="impact-big">18<sub>%</sub></div><div class="impact-desc">EBITDA Maintained<br>7-Year Business Run</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label reveal">Career Timeline</div>
+    <h2 class="section-title reveal">Where I've<br>created value.</h2>
+    <div class="exp-timeline">
+
+      <!-- Healthy18 -->
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-title">Program Manager — Product & Operations</div>
+          <div class="exp-date">Feb 2025 – Present</div>
+        </div>
+        <div class="exp-company"><strong>Healthy18 Pvt. Ltd.</strong> — Official Tech Partner: 3M Car Care Doorstep · Delhi, India</div>
+        <ul class="exp-bullets">
+          <li>Single point of accountability for Bridge App — a live B2B SaaS CRM managing leads, partner allocation, call center operations, and service delivery for 3M India.</li>
+          <li>Scaled monthly revenue 157% in 7 months (₹3.1L → ₹8L); managed ₹51L+ in total tracked revenue across 12 months.</li>
+          <li>Improved lead funnel CVR from 5% → 8.2% (+65% lift) via funnel analysis, follow-up automation, A/B testing, and partner SLA enforcement; peak organic CVR 18.1%.</li>
+          <li>Managed 55K+ leads, 3,849 bookings, and 3,594 completed service appointments with zero critical-path delivery delays.</li>
+          <li>Authored PRDs, BRDs, SOPs, User Stories; ran Agile sprint planning, Backlog Refinement, Sprint Retrospectives; defined KPIs and OKRs across revenue, conversion, and partner performance.</li>
+          <li>Built executive dashboards using SQL (MySQL), Power BI, Advanced Excel, and Figma for stakeholder decision-making and weekly business reviews with 3M leadership.</li>
+          <li>Onboarded B2B partnerships — CRED, CARS24, IDFC Bank, ICICI Bank; designed WhatsApp lead workflows, process automation, and dependency management frameworks.</li>
+          <li>Leveraged ChatGPT, Gemini Advanced, and Claude for PRD drafting, market research, and documentation, compressing delivery timelines significantly.</li>
+        </ul>
+        <div class="exp-metrics">
+          <div class="metric-chip"><span>157%</span> Revenue Growth</div>
+          <div class="metric-chip"><span>55K+</span> Leads Managed</div>
+          <div class="metric-chip"><span>+65%</span> CVR Lift</div>
+          <div class="metric-chip"><span>₹51L+</span> Revenue Tracked</div>
+          <div class="metric-chip"><span>4</span> B2B Partnerships</div>
+        </div>
+      </div>
+
+      <!-- Founder -->
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-title">Founder & Director — Business Operations & Growth</div>
+          <div class="exp-date">Jul 2017 – Jan 2024</div>
+        </div>
+        <div class="exp-company"><strong>Mosha Health & Wellness</strong> + <strong>Mosha Food & Beverages Pvt. Ltd.</strong> · Delhi, India · 7 Years</div>
+        <ul class="exp-bullets">
+          <li>Founded and scaled two D2C and B2B consumer businesses — grew annual revenue ₹30L → ₹70L (FY17-21) with sustained EBITDA of 18–20%.</li>
+          <li>Sole product owner of e-commerce platform — directed UX/UI, wireframing, information architecture, checkout flow, and conversion optimisation for a custom PHP website.</li>
+          <li>Managed product operations across own website, Amazon, Flipkart, and Meesho — product listings, pricing strategy, A+ content, and marketplace analytics.</li>
+          <li>Led 6-month product R&D and launched Peri-Peri Masala Seasoning (Jul 2023) — owned packaging design, competitive benchmarking, go-to-market strategy, and omnichannel distribution.</li>
+          <li>Managed B2B herbal tea export (Samahan Tea — Sri Lanka) to Russia and Ukraine; held exclusive North India distributor rights.</li>
+          <li>Ran Google Ads independently for 5–6 years — owned campaign planning, audience targeting, and budget allocation, consistently hitting monthly revenue targets.</li>
+        </ul>
+        <div class="exp-metrics">
+          <div class="metric-chip"><span>₹30L → ₹70L</span> Revenue Scale</div>
+          <div class="metric-chip"><span>18–20%</span> EBITDA</div>
+          <div class="metric-chip"><span>7 Years</span> Founder Run</div>
+          <div class="metric-chip"><span>5–6 Yrs</span> Google Ads</div>
+        </div>
+      </div>
+
+      <!-- HDFC -->
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-title">Virtual Relationship Manager</div>
+          <div class="exp-date">Mar 2016 – Mar 2017</div>
+        </div>
+        <div class="exp-company"><strong>HDFC Bank</strong> · Delhi, India</div>
+        <ul class="exp-bullets">
+          <li>Managed high-value customer portfolios (UAE & Singapore accounts) — used banking CRM data and behavioural analytics to drive engagement, retention, and cross-sell outcomes.</li>
+          <li>Analysed customer behaviour patterns to identify product fit opportunities and improve wallet share and satisfaction scores.</li>
+        </ul>
+      </div>
+
+      <!-- Redd Host -->
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-title">Events Head</div>
+          <div class="exp-date">Jan 2014 – Jan 2016</div>
+        </div>
+        <div class="exp-company"><strong>Redd Host Event & Management</strong> · Delhi, India</div>
+        <ul class="exp-bullets">
+          <li>Led planning and execution of brand activations, conferences, and corporate events — managed budgets, multi-vendor coordination, and senior stakeholder relationships at scale.</li>
+          <li>Managed client communication, operational planning, and on-ground execution for multiple large-scale events across Delhi NCR.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label reveal">Work & Projects</div>
+    <h2 class="section-title reveal">Things I've<br>built & delivered.</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#0D1B2A,#1A3A5C)">
+          <div class="icon">📊</div>
+          <span class="project-tag-top" style="background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.4);color:#E8836B">Live Product</span>
+        </div>
+        <div class="project-body">
+          <h3>Bridge App — B2B CRM</h3>
+          <p>Live CRM platform for 3M Car Care Doorstep — managing lead generation, partner allocation, appointment scheduling, and service tracking across India. Built for scale, owned end-to-end.</p>
+          <div class="project-stats">
+            <span class="p-stat">55K+ Leads</span>
+            <span class="p-stat">₹51L Revenue</span>
+            <span class="p-stat">157% Growth</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#0A1A12,#0E3A22)">
+          <div class="icon">💹</div>
+          <span class="project-tag-top" style="background:rgba(14,107,94,.2);border:1px solid rgba(14,107,94,.4);color:#5DBCAF">Analytics</span>
+        </div>
+        <div class="project-body">
+          <h3>3M Revenue & CVR Dashboard</h3>
+          <p>End-to-end executive dashboard tracking ₹51L+ revenue, 55K+ leads, CVR trends, and ad spend efficiency across 12 months — built using SQL, Power BI, and Excel.</p>
+          <div class="project-stats">
+            <span class="p-stat">SQL · Power BI · Excel</span>
+            <span class="p-stat">12-Month Tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#1A0C2A,#2A1545)">
+          <div class="icon">🛒</div>
+          <span class="project-tag-top" style="background:rgba(201,153,42,.15);border:1px solid rgba(201,153,42,.35);color:#D4AF37">D2C Product</span>
+        </div>
+        <div class="project-body">
+          <h3>Mosha Health & Wellness — E-Commerce</h3>
+          <p>Built the brand's e-commerce portal end-to-end — UX/UI design direction, PHP website, product listings on Amazon & Flipkart, Google Ads management, and B2B export operations.</p>
+          <div class="project-stats">
+            <span class="p-stat">₹70L Annual Rev</span>
+            <span class="p-stat">5+ Year Ops</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#1A1008,#2A1F0A)">
+          <div class="icon">🌶️</div>
+          <span class="project-tag-top" style="background:rgba(201,153,42,.15);border:1px solid rgba(201,153,42,.35);color:#D4AF37">Product Launch</span>
+        </div>
+        <div class="project-body">
+          <h3>Mosha Food — Peri-Peri Masala Launch</h3>
+          <p>Led 6-month R&D, packaging design, competitive benchmarking, and go-to-market strategy for Peri-Peri Masala Seasoning sachets — launched Jul 2023 across online and offline channels simultaneously.</p>
+          <div class="project-stats">
+            <span class="p-stat">Launched Jul 2023</span>
+            <span class="p-stat">Omnichannel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#0A1220,#0C1E35)">
+          <div class="icon">🚗</div>
+          <span class="project-tag-top" style="background:rgba(14,107,94,.2);border:1px solid rgba(14,107,94,.4);color:#5DBCAF">SQL Case Study</span>
+        </div>
+        <div class="project-body">
+          <h3>Car Sales Analytics — SQL</h3>
+          <p>Revenue and customer behaviour analysis using JOINs, CTEs, and Window Functions — surfaced actionable insights on sales trends and repeat-customer value patterns.</p>
+          <div class="project-stats">
+            <span class="p-stat">MySQL</span>
+            <span class="p-stat">CTEs · JOINs · Windows</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img" style="background:linear-gradient(135deg,#0C140A,#182210)">
+          <div class="icon">📈</div>
+          <span class="project-tag-top" style="background:rgba(14,107,94,.2);border:1px solid rgba(14,107,94,.4);color:#5DBCAF">Data Analysis</span>
+        </div>
+        <div class="project-body">
+          <h3>India CPI Inflation Analysis</h3>
+          <p>Excel-based analysis of 20,000+ records with interactive dashboards highlighting sector-wise inflation trends — designed for strategic planning and business decision support.</p>
+          <div class="project-stats">
+            <span class="p-stat">20K+ Records</span>
+            <span class="p-stat">Advanced Excel · Dashboards</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label reveal">Capabilities</div>
+    <h2 class="section-title reveal">What I bring<br>to the table.</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-cat">Product & Program</div>
+        <h3>Product & Program Management</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Product Roadmap</span><span class="skill-tag">PRD / BRD</span><span class="skill-tag">User Stories</span>
+          <span class="skill-tag">Backlog Refinement</span><span class="skill-tag">Sprint Planning</span><span class="skill-tag">UAT</span>
+          <span class="skill-tag">Agile & Scrum</span><span class="skill-tag">Program Governance</span><span class="skill-tag">Dependency Mgmt</span>
+          <span class="skill-tag">Risk Mitigation</span><span class="skill-tag">KPI / OKR</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Strategy & Growth</div>
+        <h3>Strategy & Business Operations</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Business Strategy</span><span class="skill-tag">GTM Strategy</span><span class="skill-tag">Revenue Growth</span>
+          <span class="skill-tag">Market Research</span><span class="skill-tag">Competitive Analysis</span><span class="skill-tag">P&L Management</span>
+          <span class="skill-tag">Business Case Dev</span><span class="skill-tag">Change Management</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Operations</div>
+        <h3>Ops & Process Excellence</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">CRM Operations</span><span class="skill-tag">SLA Management</span><span class="skill-tag">Process Design</span>
+          <span class="skill-tag">Workflow Automation</span><span class="skill-tag">SOP Development</span><span class="skill-tag">Customer Journey</span>
+          <span class="skill-tag">Cross-Functional Coord</span><span class="skill-tag">Stakeholder Mgmt</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Data & Analytics</div>
+        <h3>Data, Analytics & Reporting</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL (MySQL)</span><span class="skill-tag">Power BI</span><span class="skill-tag">Advanced Excel</span>
+          <span class="skill-tag">Funnel Analytics</span><span class="skill-tag">Revenue Analytics</span><span class="skill-tag">KPI Dashboards</span>
+          <span class="skill-tag">Google Analytics</span><span class="skill-tag">Data-Driven Decisions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS MARQUEE -->
+<section id="tools" style="padding:60px 0">
+  <div style="max-width:1200px;margin:0 auto;padding:0 48px">
+    <div class="section-label reveal" style="margin-bottom:32px">Tools & Platforms</div>
+  </div>
+  <div class="tools-marquee">
+    <div class="tools-track">
+      <span class="tool-chip">SQL / MySQL</span><span class="tool-chip">Power BI</span><span class="tool-chip">Advanced Excel</span>
+      <span class="tool-chip">Figma</span><span class="tool-chip">Jira</span><span class="tool-chip">Confluence</span>
+      <span class="tool-chip">Google Analytics</span><span class="tool-chip">ChatGPT / GPT-4</span><span class="tool-chip">Gemini Advanced</span>
+      <span class="tool-chip">Claude AI</span><span class="tool-chip">Google Sheets</span><span class="tool-chip">PowerPoint</span>
+      <span class="tool-chip">WhatsApp API</span><span class="tool-chip">Notion</span><span class="tool-chip">Amazon Seller</span>
+      <span class="tool-chip">Flipkart Seller</span><span class="tool-chip">Meesho</span><span class="tool-chip">Google Ads</span>
+      <!-- duplicate for infinite scroll -->
+      <span class="tool-chip">SQL / MySQL</span><span class="tool-chip">Power BI</span><span class="tool-chip">Advanced Excel</span>
+      <span class="tool-chip">Figma</span><span class="tool-chip">Jira</span><span class="tool-chip">Confluence</span>
+      <span class="tool-chip">Google Analytics</span><span class="tool-chip">ChatGPT / GPT-4</span><span class="tool-chip">Gemini Advanced</span>
+      <span class="tool-chip">Claude AI</span><span class="tool-chip">Google Sheets</span><span class="tool-chip">PowerPoint</span>
+      <span class="tool-chip">WhatsApp API</span><span class="tool-chip">Notion</span><span class="tool-chip">Amazon Seller</span>
+      <span class="tool-chip">Flipkart Seller</span><span class="tool-chip">Meesho</span><span class="tool-chip">Google Ads</span>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label reveal">Academic & Certifications</div>
+    <h2 class="section-title reveal">Education &<br>Learning.</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-year">2010 – 2013</div>
+        <h3>Bachelor of Business Administration</h3>
+        <p>Human Resources Management<br>College of Vocational Studies,<br>University of Delhi</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">📊</div>
+        <div class="edu-year">Feb 2024 – Feb 2025</div>
+        <h3>Data Science & Analytics</h3>
+        <p>Professional Advanced Certification<br>Coding Ninjas · 1 Year Program</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">🗄️</div>
+        <div class="edu-year">Oct – Dec 2024</div>
+        <h3>SQL Bootcamp</h3>
+        <p>Certificate in SQL<br>Udemy · 3 Months<br>MySQL · JOINs · CTEs · Window Functions</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">⚡</div>
+        <div class="edu-year">Jan – Feb 2026</div>
+        <h3>Agile in Project Management</h3>
+        <p>Certificate in Agile<br>HP Life Global<br>Scrum · Sprint Planning · Delivery</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Let's build<br>something great.</h2>
+    <p>Open to Program Manager, Product Operations, Business Analyst, Strategy & Operations, and Founder's Office roles — in Delhi NCR or remote. Let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:iamkaushal56@yahoo.com" class="contact-link">✉️ iamkaushal56@yahoo.com</a>
+      <a href="tel:+919667105556" class="contact-link">📱 +91 9667105556</a>
+      <a href="https://linkedin.com/in/prabal-kaushal" target="_blank" class="contact-link">💼 LinkedIn</a>
+      <a href="#" class="contact-link">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Prabal Kaushal · Delhi, India</span>
+  <span>Program Manager · Product Ops · Strategy & Operations</span>
+</footer>
+
+<script>
+// ── Cursor ───────────────────────────────────────────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.project-card,.skill-card,.stat-item,.edu-card,.impact-cell').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(192,57,43,.8)'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(192,57,43,.5)'});
+});
+
+// ── Scroll reveal ────────────────────────────────────────────────────────
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), i*80);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── Animated counter ────────────────────────────────────────────────────
+function animateCounter(el, target, prefix='', suffix='', decimals=0){
+  const dur=1600, step=16;
+  let current=0, frames=dur/step;
+  const inc=target/frames;
+  const timer=setInterval(()=>{
+    current=Math.min(current+inc, target);
+    el.innerHTML = prefix + (decimals?current.toFixed(decimals):Math.floor(current)) + suffix;
+    if(current>=target) clearInterval(timer);
+  },step);
+}
+
+const statsObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !e.target.dataset.counted){
+      e.target.dataset.counted='1';
+      const nums = e.target.querySelectorAll('.stat-num,.impact-big');
+      nums.forEach(n=>{
+        const txt = n.textContent;
+        const numMatch = txt.match(/[\d.]+/);
+        if(!numMatch) return;
+        const val = parseFloat(numMatch[0]);
+        const suffix = n.querySelector('span') ? n.querySelector('span').textContent : (txt.replace(/[\d.]/g,'').trim());
+        if(n.querySelector('span')){
+          const sp = n.querySelector('span').textContent;
+          animateCounter(n, val, '', '', val%1!==0?1:0);
+          setTimeout(()=>{ if(!n.querySelector('span')) n.innerHTML += '<span>'+sp+'</span>'; },100);
+        } else {
+          n.innerHTML = n.innerHTML;
+        }
+      });
+    }
+  });
+},{threshold:.3});
+
+document.querySelectorAll('#stats,#impact').forEach(s=>statsObs.observe(s));
+</script>
+</body>
+</html>
